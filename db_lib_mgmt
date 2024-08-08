@@ -1,0 +1,70 @@
+create database library;
+show databases;
+use library;
+
+CREATE TABLE book (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    isbn VARCHAR(20) NOT NULL,
+    quantity INT NOT NULL
+);
+
+CREATE TABLE member (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE transaction (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT NOT NULL,
+    member_id INT NOT NULL,
+    date_borrowed DATE NOT NULL,
+    date_returned DATE,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (member_id) REFERENCES members(id)
+);
+
+INSERT INTO book (title, author, isbn, quantity) VALUES
+('To Kill a Mockingbird', 'Harper Lee', '9780061120084', 5),
+('1984', 'George Orwell', '9780451524935', 8),
+('The Great Gatsby', 'F. Scott Fitzgerald', '9780743273565', 6),
+('Pride and Prejudice', 'Jane Austen', '9780141439518', 4),
+('The Catcher in the Rye', 'J.D. Salinger', '9780316769488', 7);
+
+
+INSERT INTO member (name, email) VALUES
+('John Smith', 'john@gmail.com'),
+('Alice Johnson', 'alice@gmail.com'),
+('Michael Brown', 'michael@gmail.com'),
+('Emma Davis', 'emma@gmail.com'),
+('Christopher Wilson', 'christopher@gmail.com');
+
+
+INSERT INTO transaction (book_id, member_id, date_borrowed, date_returned) VALUES
+(1, 1, '2024-04-01', NULL),
+(2, 2, '2024-04-02', '2024-04-05'),
+(3, 3, '2024-04-03', '2024-04-07'),
+(4, 4, '2024-04-04', NULL),
+(5, 5, '2024-04-05', NULL);
+
+
+INSERT INTO book (title, author, isbn, quantity) VALUES ('The Castle', 'Robert Frost', '9781234567890', 10);
+
+INSERT INTO member (name, email) VALUES ('angeline', 'angeline@gmail.com');
+
+INSERT INTO transaction (book_id, member_id, date_borrowed) VALUES (1, 1, '2024-04-25');
+
+SELECT * FROM book;
+
+SELECT * FROM member;
+
+SELECT * FROM transaction;
+
+select distinct * from book;
+select distinct * from member;
+select distinct * from transaction;
+
+delete from transaction
+where id=7;
